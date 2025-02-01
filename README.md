@@ -10,28 +10,26 @@ This project is an experiment to investigate issues encountered when setting up 
 
 ## Experiment Steps
 
-1. **[Update Package Manager and Dependencies](https://github.com/Laboratorynotices/NuxtHub_VueFire_SSR/tree/b3e68d69c668d99c81131915aaf2d428b4471b1d)**
+1. **Update Package Manager and Dependencies**
 
    ```bash
    sudo npm install -g npm@latest nuxi@latest
    ```
 
-2. **[Initialize Nuxt 3 Project](https://github.com/Laboratorynotices/NuxtHub_VueFire_SSR/tree/a535c70e811d33d19bdaa8f308f356750d3e04fb)**
+2. **Initialize Nuxt 3 Project**
 
    ```bash
    npx nuxi init . --package-manager npm --force --no-telemetry --no-git-init
    ```
 
-3. **[Add NuxtHub Integration](https://github.com/Laboratorynotices/NuxtHub_VueFire_SSR/tree/1fb82c796744d79790778cbdc2affa6085ad5aab)**
-
-   Following the [official NuxtHub documentation](https://hub.nuxt.com/docs/getting-started/installation#add-to-a-nuxt-project), execute:
+3. **Add NuxtHub Integration**
 
    ```bash
    npx nuxi module add hub
    npm install --save-dev wrangler
    ```
 
-4. **[Configure NuxtHub](https://github.com/Laboratorynotices/NuxtHub_VueFire_SSR/tree/806fdfaae022b8f7951f201d1826516b80a22376)**
+4. **Configure NuxtHub**
 
    Update your `nuxt.config.ts` file with the following configuration:
 
@@ -44,17 +42,13 @@ This project is an experiment to investigate issues encountered when setting up 
 
 5. **Deploy the Application**
 
-   Now we can deploy the project:
-
    ```bash
    npx nuxthub deploy
    ```
 
    > Note: Initial deployment may take several minutes before the application becomes accessible at its new URL.
 
-6. **[Enable SSR](https://github.com/Laboratorynotices/NuxtHub_VueFire_SSR/tree/88f829fb5ec220a949bb09ccd2c61f57ef328ea3)**
-
-   Enable SSR by updating the `nuxt.config.ts` file with the following configuration:
+6. **Enable SSR**
 
    ```typescript
    export default defineNuxtConfig({
@@ -63,9 +57,9 @@ This project is an experiment to investigate issues encountered when setting up 
    });
    ```
 
-7. **[First SSR Request](https://github.com/Laboratorynotices/NuxtHub_VueFire_SSR/tree/8e2f6c8e34d28a09c0b4ecb1caeec2413a520147)**
+7. **First SSR Request**
 
-   Following the instructions from [Nuxt Documentation](https://nuxt.com/docs/guide/directory-structure/server), create the file `server/api/hello.ts`:
+   Create the file `server/api/hello.ts`:
 
    ```typescript
    export default defineEventHandler((event) => {
@@ -81,10 +75,60 @@ This project is an experiment to investigate issues encountered when setting up 
    <script setup lang="ts">
      const { data } = await useFetch("/api/hello");
    </script>
-
    <template>
      <pre>{{ data }}</pre>
    </template>
    ```
 
-...
+8. **Firebase Admin SDK**
+
+   - Download the secret key from [Firebase Console](https://console.firebase.google.com/).
+   - Rename the downloaded file to `service-account.json` and place it in the project root.
+   - Add `service-account.json` to `.gitignore`.
+
+9. **Install VueFire**
+
+   ```bash
+   npm install firebase
+   npx nuxi@latest module add vuefire
+   npm install firebase-admin firebase-functions @firebase/app-types
+   ```
+
+10. **Configure VueFire**
+
+Update `nuxt.config.ts`:
+
+```typescript
+export default defineNuxtConfig({
+  vuefire: {
+    config: {
+      apiKey: process.env.GOOGLE_FIREBASE_CONFIG_API_KEY,
+      authDomain: process.env.GOOGLE_FIREBASE_CONFIG_AUTH_DOMAIN,
+      projectId: process.env.GOOGLE_FIREBASE_CONFIG_PROJECT_ID,
+      appId: process.env.GOOGLE_FIREBASE_CONFIG_APP_ID,
+    },
+  },
+  // Other configuration options...
+});
+```
+
+Add the following to `.env`:
+
+```
+GOOGLE_FIREBASE_CONFIG_API_KEY="..."
+GOOGLE_FIREBASE_CONFIG_AUTH_DOMAIN="....firebaseapp.com"
+GOOGLE_FIREBASE_CONFIG_PROJECT_ID="..."
+GOOGLE_FIREBASE_CONFIG_APP_ID="..."
+GOOGLE_APPLICATION_CREDENTIALS=/service-account.json
+```
+
+## Result
+
+Deployment completes successfully, but the application shows a 500 error. Logs from [NuxtHub Admin](https://admin.hub.nuxt.com/) show:
+
+```
+GET 500 /
+[nuxt] [request error] [unhandled] [500],Cannot read properties of undefined (reading 'isTTY')
+
+[nuxt] [request error] [unhandled] [500],Cannot read properties of undefined (reading 'isTTY')
+```
