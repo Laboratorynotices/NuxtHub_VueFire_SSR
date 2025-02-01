@@ -10,29 +10,41 @@ This project is an experiment to investigate issues encountered when setting up 
 
 ## Experiment Steps
 
-1. **[Update Packages](https://github.com/Laboratorynotices/NuxtHub_VueFire_SSR/tree/b3e68d69c668d99c81131915aaf2d428b4471b1d)**
+1. **[Update Package Manager and Dependencies](https://github.com/Laboratorynotices/NuxtHub_VueFire_SSR/tree/b3e68d69c668d99c81131915aaf2d428b4471b1d)**
 
-```Shell
-sudo npm install -g npm@latest nuxi@latest
-```
+   ```bash
+   sudo npm install -g npm@latest nuxi@latest
+   ```
 
-2. **[Install Nuxt 3](https://github.com/Laboratorynotices/NuxtHub_VueFire_SSR/tree/a535c70e811d33d19bdaa8f308f356750d3e04fb)**
-   - Run the following command in the project directory:
+2. **[Initialize Nuxt 3 Project](https://github.com/Laboratorynotices/NuxtHub_VueFire_SSR/tree/a535c70e811d33d19bdaa8f308f356750d3e04fb)**
 
-```Shell
-npx nuxi init . --package-manager npm --force --no-telemetry --no-git-init
-```
+   ```bash
+   npx nuxi init . --package-manager npm --force --no-telemetry --no-git-init
+   ```
 
-3. **[Add NuxtHub to the project](https://github.com/Laboratorynotices/NuxtHub_VueFire_SSR/tree/1fb82c796744d79790778cbdc2affa6085ad5aab)**
+3. **[Add NuxtHub Integration](https://github.com/Laboratorynotices/NuxtHub_VueFire_SSR/tree/1fb82c796744d79790778cbdc2affa6085ad5aab)**
+   Following the [official NuxtHub documentation](https://hub.nuxt.com/docs/getting-started/installation#add-to-a-nuxt-project), execute:
 
-- Following the instructions at https://hub.nuxt.com/docs/getting-started/installation#add-to-a-nuxt-project, execute the following commands in the project directory:
+   ```bash
+   npx nuxi module add hub
+   npm install --save-dev wrangler
+   ```
 
-```Shell
-npx nuxi module add hub
-```
+4. **[Configure NuxtHub](https://github.com/Laboratorynotices/NuxtHub_VueFire_SSR/tree/806fdfaae022b8f7951f201d1826516b80a22376)**
+   Update your `nuxt.config.ts` file with the following configuration:
 
-```Shell
-npm install --save-dev wrangler
-```
+   ```typescript
+   export default defineNuxtConfig({
+     modules: ["@nuxthub/core"],
+     // Additional configuration options can be added here
+   });
+   ```
 
-...
+5. **Deploy the Application**
+   Now we can deploy the project:
+
+   ```bash
+   npx nuxthub deploy
+   ```
+
+   > Note: Initial deployment may take several minutes before the application becomes accessible at its new URL.
