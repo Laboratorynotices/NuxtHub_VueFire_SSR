@@ -23,6 +23,7 @@ This project is an experiment to investigate issues encountered when setting up 
    ```
 
 3. **[Add NuxtHub Integration](https://github.com/Laboratorynotices/NuxtHub_VueFire_SSR/tree/1fb82c796744d79790778cbdc2affa6085ad5aab)**
+
    Following the [official NuxtHub documentation](https://hub.nuxt.com/docs/getting-started/installation#add-to-a-nuxt-project), execute:
 
    ```bash
@@ -31,16 +32,18 @@ This project is an experiment to investigate issues encountered when setting up 
    ```
 
 4. **[Configure NuxtHub](https://github.com/Laboratorynotices/NuxtHub_VueFire_SSR/tree/806fdfaae022b8f7951f201d1826516b80a22376)**
+
    Update your `nuxt.config.ts` file with the following configuration:
 
    ```typescript
    export default defineNuxtConfig({
      modules: ["@nuxthub/core"],
-     // Additional configuration options can be added here
+     // Other configuration options...
    });
    ```
 
 5. **Deploy the Application**
+
    Now we can deploy the project:
 
    ```bash
@@ -48,3 +51,40 @@ This project is an experiment to investigate issues encountered when setting up 
    ```
 
    > Note: Initial deployment may take several minutes before the application becomes accessible at its new URL.
+
+6. **[Enable SSR](https://github.com/Laboratorynotices/NuxtHub_VueFire_SSR/tree/88f829fb5ec220a949bb09ccd2c61f57ef328ea3)**
+
+   Enable SSR by updating the `nuxt.config.ts` file with the following configuration:
+
+   ```typescript
+   export default defineNuxtConfig({
+     ssr: true,
+     // Other configuration options...
+   });
+   ```
+
+7. **[First SSR Request](https://github.com/Laboratorynotices/NuxtHub_VueFire_SSR/tree/8e2f6c8e34d28a09c0b4ecb1caeec2413a520147)**
+
+   Following the instructions from [Nuxt Documentation](https://nuxt.com/docs/guide/directory-structure/server), create the file `server/api/hello.ts`:
+
+   ```typescript
+   export default defineEventHandler((event) => {
+     return {
+       hello: "world",
+     };
+   });
+   ```
+
+   In `app.vue`, add the following code to fetch and display the data:
+
+   ```html
+   <script setup lang="ts">
+     const { data } = await useFetch("/api/hello");
+   </script>
+
+   <template>
+     <pre>{{ data }}</pre>
+   </template>
+   ```
+
+...
