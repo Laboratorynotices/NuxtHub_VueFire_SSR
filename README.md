@@ -10,4 +10,10 @@ This project is an experiment to investigate issues encountered when setting up 
 
 ## Experiment Steps
 
+1. **Update Packages**
+
+```Shell
+sudo npm install -g npm@latest nuxi@latest
+```
+
 ...
