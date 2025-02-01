@@ -10,10 +10,17 @@ This project is an experiment to investigate issues encountered when setting up 
 
 ## Experiment Steps
 
-1. **Update Packages**
+1. **[Update Packages](https://github.com/Laboratorynotices/NuxtHub_VueFire_SSR/tree/b3e68d69c668d99c81131915aaf2d428b4471b1d)**
 
 ```Shell
 sudo npm install -g npm@latest nuxi@latest
+```
+
+2. **[Install Nuxt 3](https://github.com/Laboratorynotices/NuxtHub_VueFire_SSR/tree/a535c70e811d33d19bdaa8f308f356750d3e04fb)**
+   - Run the following command in the project directory:
+
+```Shell
+npx nuxi init . --package-manager npm --force --no-telemetry --no-git-init
 ```
 
 ...
