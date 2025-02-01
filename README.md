@@ -23,4 +23,16 @@ sudo npm install -g npm@latest nuxi@latest
 npx nuxi init . --package-manager npm --force --no-telemetry --no-git-init
 ```
 
+3. **[Add NuxtHub to the project](https://github.com/Laboratorynotices/NuxtHub_VueFire_SSR/tree/1fb82c796744d79790778cbdc2affa6085ad5aab)**
+
+- Following the instructions at https://hub.nuxt.com/docs/getting-started/installation#add-to-a-nuxt-project, execute the following commands in the project directory:
+
+```Shell
+npx nuxi module add hub
+```
+
+```Shell
+npm install --save-dev wrangler
+```
+
 ...
